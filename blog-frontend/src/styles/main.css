@@ -1,0 +1,7 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: rgba(165, 154, 154, 0.658);
+    color: var(--text-color);
+  }
+  

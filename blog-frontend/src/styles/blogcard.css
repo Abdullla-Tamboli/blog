@@ -1,0 +1,90 @@
+/* Grid layout for the list of blog cards */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+/* Individual blog card styling */
+.blog-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Blog image at the top */
+.blog-card-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+/* Content inside the card */
+.blog-card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Blog title */
+.blog-card-content h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+/* Blog snippet text */
+.blog-card-content p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* Category text */
+.blog-card-category {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+/* Button section */
+.blog-card-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.blog-card-buttons button {
+  padding: 8px 14px;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.blog-card-buttons button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Different states */
+.blog-card-buttons button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px royalblue;
+}
