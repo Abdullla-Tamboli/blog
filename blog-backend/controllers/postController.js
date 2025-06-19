@@ -160,12 +160,21 @@ exports.getPostById = async (req, res) => {
 // Get posts by a specific user
 exports.getPostsByUser = async (req, res) => {
   try {
-    const posts = await Post.find({ author: req.params.userId });
-    res.json(posts);
+    const userId = req.params.userId;
+
+    const posts = await Post.find()
+      .populate('author', 'username')
+      .populate('comments.user', 'username')
+      .sort({ createdAt: -1 });
+
+    const userPosts = posts.filter(post => post.author?._id?.toString() === userId);
+    
+    res.json(userPosts);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
 
 // Get posts by category
 exports.getPostsByCategory = async (req, res) => {

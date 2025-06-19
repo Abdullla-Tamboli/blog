@@ -10,10 +10,9 @@ const PostSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   category: {
-    type: String,
-    enum: ['Web Development', 'Cloud Computing', 'Data Science', 'Cybersecurity'],
-    required: true
-  },
+  type: String,
+  required: true // ✅ Keep this if you want it to be mandatory
+},
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   comments: [CommentSchema],

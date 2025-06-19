@@ -1,70 +1,53 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import axios from '../api/axios';
-import '../styles/BlogCard.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const BlogCard = ({ post }) => {
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  const [likes, setLikes] = useState(post.likes.length);
-  const [liked, setLiked] = useState(user && post.likes.includes(user.id));
-
-  const handleReadMore = () => {
-    navigate(`/post/${post._id}`);
-  };
-
-  const handleLike = async () => {
-    if (!user) {
-      alert('You must be logged in to like posts!');
-      return;
-    }
-
-    try {
-      const res = await axios.put(`/posts/${post._id}/like`, null, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-
-      setLiked(!liked);
-      setLikes(res.data.likes);
-    } catch (err) {
-      console.error('Like error:', err);
-    }
-  };
-
-  const handleComment = () => {
-    navigate(`/post/${post._id}#comments`);
-  };
+  console.log("Post ID for read more:", post._id);
 
   return (
-    <div className="blog-grid">
-      <div className='blog-card'>
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
+      {/* Post Image */}
       {post.image && (
         <img
           src={`http://localhost:5000/uploads/${post.image}`}
           alt={post.title}
-          className="blog-card-image"
+          className="w-full h-48 object-cover"
         />
       )}
-      <div className="blog-card-content">
-        <h2>{post.title}</h2>
-        <p>{post.content.slice(0, 150)}...</p>
-        <p className="blog-card-category">Category: {post.category}</p>
 
-        <div className="blog-card-buttons">
-          <button onClick={handleLike}>
-            {liked ? '❤️ Liked' : '🤍 Like'} ({likes})
-          </button>
-          <button onClick={handleComment}>
-            💬 Comment
-          </button>
-          <button onClick={handleReadMore}>
-            📖 Read More
-          </button>
+      {/* Post Info */}
+      <div className="p-4 space-y-2">
+        {/* Title */}
+        <h2 className="text-lg font-bold text-gray-800 line-clamp-2">
+          {post.title}
+        </h2>
+
+        {/* Short Content Preview */}
+        <p className="text-sm text-gray-600 line-clamp-3">
+          {post.content.length > 120
+            ? post.content.slice(0, 120) + '...'
+            : post.content}
+        </p>
+
+        {/* Meta Info */}
+        <div className="flex flex-wrap justify-between items-center text-xs text-gray-500 mt-2">
+          <span>👤 {post.author?.username || 'Anonymous'}</span>
+          <span>📅 {new Date(post.createdAt).toLocaleDateString()}</span>
         </div>
 
+        <div className="flex justify-between items-center mt-1 text-sm">
+          <span className="text-indigo-600 font-medium capitalize">
+            📚 {post.category}
+          </span>
+          <span className="text-pink-600">❤️ {post.likes?.length || 0}</span>
+        </div>
+
+        {/* Read More Button */}
+        <div className="text-right mt-2">
+          <Link to={`/post/${post._id}`}>Read More</Link>
+
+        </div>
       </div>
-    </div>
     </div>
   );
 };

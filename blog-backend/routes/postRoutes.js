@@ -5,10 +5,14 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 router.post('/', authMiddleware, upload.single('image'), createPost);
 router.get('/', getAllPosts);
-router.get('/:id', getPostById);
+
+// ✅ Put these first
 router.get('/user/:userId', getPostsByUser);
 router.get('/category/:category', getPostsByCategory);
-// router.put('/:id', authMiddleware, editPost);
+
+// ⚠️ Put this after above two
+router.get('/:id', getPostById);
+
 router.delete('/:id', authMiddleware, deletePost);
 router.put('/:id/like', authMiddleware, toggleLike);
 router.put('/:id', authMiddleware, upload.single('image'), editPost);

@@ -1,30 +1,26 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Home from './pages/Home';
-import CreatePost from './pages/CreatePost';
-import PostDetail from './pages/PostDetail';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import EditPost from './pages/EditPost'; // ✅ Add this
-import Footer from './components/Footer';
-import VerifyOtp from './components/VerifyOtp'; // Import the VerifyOtp component
-import './styles/main.css';
+import './index.css'
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Navbar from './components/Navbar';
+import CreatePost from './pages/CreatePost';
+import PostView from './pages/PostView';
 function App() {
   return (
     <Router>
-      <Header />
+      <Navbar/>
       <Routes>
+
         <Route path="/" element={<Home />} />
-        <Route path="/create" element={<CreatePost />} />
-        <Route path="/post/:id" element={<PostDetail />} />
-        <Route path="/edit/:id" element={<EditPost />} /> {/* ✅ Add this */}
+        <Route path="/create-post" element={<CreatePost />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/verify-otp" element={<VerifyOtp />} /> {/* Add this */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/post/:id" element={<PostView />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-      <Footer />
     </Router>
   );
 }
