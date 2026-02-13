@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import GraphStats from "../components/GraphStats";
 import ProgressStats from "../components/ProgressStats";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://blog-application-vh8n.onrender.com/api";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
