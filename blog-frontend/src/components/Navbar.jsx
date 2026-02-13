@@ -17,7 +17,9 @@ function Navbar() {
   }
 
   const toggleMenu = () => setIsOpen(!isOpen);
-
+  // Apply pill-shaped and blur styles to navbar
+  // You can use Tailwind's rounded-full and backdrop-blur classes
+  // Optionally, add a semi-transparent background for glassmorphism effect
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -25,54 +27,54 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-md p-4">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className="sticky fixed p-4">
+      <div className="container  flex  items-center">
         <h1 className="text-xl font-bold text-blue-600">
           <Link to="/">Blogger</Link>
         </h1>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-4 items-center">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? "text-blue-700 font-semibold" : "text-gray-700"
-            }
-          >
-            Home
-          </NavLink>
-
-          {user ? (
-            <>
-              <span className="text-sm text-green-700 font-medium">
-                Welcome, {user.username}
-              </span>
-              <NavLink to="/dashboard" className="text-gray-700">
-                Dashboard
-              </NavLink>
-              <button
-                onClick={handleLogout}
-                className="text-red-600 hover:underline text-sm"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <NavLink to="/login" className="text-gray-700">
-                Login
-              </NavLink>
-              <NavLink to="/register" className="text-gray-700">
-                Register
-              </NavLink>
-            </>
-          )}
-          <NavLink to="/create-post" className="text-blue-500 hover:underline">
-            + New Post
+        <div className="hidden md:flex flex-1 justify-center">
+          <div className="flex items-center space-x-12 bg-white/70 border border-gray-200 shadow-lg rounded-full backdrop-blur-lg px-10 py-3 transition-all duration-300 fixed top-6 left-1/2 -translate-x-1/2 z-50"
+            style={{ maxWidth: "900px" }}>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-700 font-semibold"
+                  : "text-gray-700 hover:text-blue-700 transition"
+              }
+            >
+              Home
             </NavLink>
 
+            {user ? (
+              <>
+                <span className="text-sm text-green-700 font-medium">
+                  Welcome, {user.username}
+                </span>
+                <NavLink to="/dashboard" className="text-gray-700 hover:text-blue-700 transition">
+                  Dashboard
+                </NavLink>
+                <button
+                  onClick={handleLogout}
+                  className="bg-white text-red-600 border border-red-400 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 hover:bg-red-600 hover:text-white shadow hover:shadow-md"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <NavLink to="/login" className="text-gray-700 hover:text-blue-700 transition">
+                  Login
+                </NavLink>
+                <NavLink to="/register" className="text-gray-700 hover:text-blue-700 transition">
+                  Register
+                </NavLink>
+              </>
+            )}
+          </div>
         </div>
-
         {/* Mobile Menu Toggle */}
         <button
           className="md:hidden text-gray-600 focus:outline-none"

@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import Navbar from './components/Navbar';
 import CreatePost from './pages/CreatePost';
 import PostView from './pages/PostView';
+import PostEdit from './pages/PostEdit';
+import Footer from './components/Footer';
 function App() {
   return (
     <Router>
@@ -18,9 +20,11 @@ function App() {
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/edit/:id" element={<PostEdit />} />
         <Route path="/post/:id" element={<PostView />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }

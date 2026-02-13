@@ -22,7 +22,8 @@ exports.createPost = async (req, res) => {
       content,
       category,
       author: req.user.id,
-      image: req.file ? req.file.filename : null
+      image: req.file ? req.file.filename : 'post.jpeg'
+
     });
 
     const savedPost = await newPost.save();
@@ -37,8 +38,8 @@ exports.createPost = async (req, res) => {
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-      .populate('author', 'username')
-      .populate('comments.user', 'username')
+      .populate('author', 'username profilePic')
+      .populate('comments.user', 'username profilePic')
       .sort({ createdAt: -1 });
 
     res.json(posts);
@@ -148,8 +149,8 @@ exports.deletePost = async (req, res) => {
 exports.getPostById = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id)
-      .populate('author', 'username')
-      .populate('comments.user', 'username');
+      .populate('author', 'username profilePic')
+      .populate('comments.user', 'username profilePic');
     if (!post) return res.status(404).json({ msg: 'Post not found' });
     res.json(post);
   } catch (err) {
@@ -162,28 +163,59 @@ exports.getPostsByUser = async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    const posts = await Post.find()
-      .populate('author', 'username')
-      .populate('comments.user', 'username')
+    const posts = await Post.find({ author: userId })
+      .populate('author', 'username profilePic')
+      .populate('comments.user', 'username profilePic')
       .sort({ createdAt: -1 });
 
-    const userPosts = posts.filter(post => post.author?._id?.toString() === userId);
-    
-    res.json(userPosts);
+    res.json(posts);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
   }
 };
 
-
 // Get posts by category
 exports.getPostsByCategory = async (req, res) => {
   try {
     const category = req.params.category;
-    const posts = await Post.find({ category });
+    const posts = await Post.find({ category })
+      .populate('author', 'username profilePic')
+      .populate('comments.user', 'username profilePic')
+      .sort({ createdAt: -1 });
     res.status(200).json(posts);
   } catch (err) {
     console.error('Error fetching posts by category:', err);
     res.status(500).json({ error: 'Failed to fetch posts by category' });
+  }
+};
+
+// Delete comment
+exports.deleteComment = async (req, res) => {
+  try {
+    const { postId, commentId } = req.params;
+    const userId = req.user.id;
+
+    const post = await Post.findById(postId);
+
+    if (!post) return res.status(404).json({ msg: 'Post not found' });
+
+    const comment = post.comments.id(commentId);
+
+    if (!comment) return res.status(404).json({ msg: 'Comment not found' });
+
+    if (
+      comment.user.toString() !== userId &&
+      post.author.toString() !== userId
+    ) {
+      return res.status(403).json({ msg: 'Unauthorized to delete this comment' });
+    }
+
+    comment.remove();
+    await post.save();
+
+    res.json({ msg: 'Comment deleted successfully' });
+  } catch (err) {
+    console.error('Delete comment error:', err.message);
+    res.status(500).json({ msg: 'Server error while deleting comment' });
   }
 };

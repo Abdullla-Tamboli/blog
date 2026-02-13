@@ -16,7 +16,7 @@ const PostSchema = new mongoose.Schema({
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   comments: [CommentSchema],
-  image: { type: String, default: null }, 
+  image: { type: String, default:'post.jpeg'}, 
   createdAt: { type: Date, default: Date.now }
 });
 
