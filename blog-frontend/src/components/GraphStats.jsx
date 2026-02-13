@@ -13,7 +13,7 @@ import {
   Cell,
 } from "recharts";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://blog-application-vh8n.onrender.com/api";
 const COLORS = ["#8884d8", "#82ca9d"];
 
 const GraphStats = () => {
