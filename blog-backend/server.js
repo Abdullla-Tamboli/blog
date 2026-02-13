@@ -12,7 +12,7 @@ const app = express();
 
 // ✅ CORS configuration for frontend connection with credentials
 app.use(cors({
-  origin: 'https://blog-38ub.onrender.com/',  // frontend origin
+  origin: 'https://blog-38ub.onrender.com',  // frontend origin
   credentials: true                 // allow cookies, auth headers
 }));
 
