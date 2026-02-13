@@ -3,7 +3,7 @@ import axios from 'axios';
 import BlogCard from '../components/BlogCard';
 import HeroSection from '../components/HeroSection';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://blog-application-vh8n.onrender.com/api';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
