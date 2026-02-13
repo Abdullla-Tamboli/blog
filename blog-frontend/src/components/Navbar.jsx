@@ -12,9 +12,10 @@ function Navbar() {
   try {
     user = token ? JSON.parse(localStorage.getItem("user")) : null;
   } catch (err) {
-    console.error("Invalid user data in localStorage");
-    localStorage.removeItem("user");
-  }
+  console.error("Invalid user data in localStorage:", err);
+  localStorage.removeItem("user");
+}
+
 
   const toggleMenu = () => setIsOpen(!isOpen);
   // Apply pill-shaped and blur styles to navbar
