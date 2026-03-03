@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://blog-application-vh8n.onrender.com/api";
 
 const PostEdit = () => {
   const { id } = useParams();

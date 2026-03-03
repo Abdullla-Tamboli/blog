@@ -3,7 +3,7 @@ import React from "react";
 import { FaTwitter, FaFacebookF, FaLinkedin, FaWhatsapp, FaCopy, FaTimes } from "react-icons/fa";
 
 const ShareModal = ({ post, onClose }) => {
-  const postUrl = `https://yourdomain.com/post/${post._id}`;
+  const postUrl = `https://blog-application-vh8n.onrender.com/post/${post._id}`;
   const encodedUrl = encodeURIComponent(postUrl);
   const title = encodeURIComponent(post.title);
 

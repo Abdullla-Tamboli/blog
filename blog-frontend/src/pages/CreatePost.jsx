@@ -51,7 +51,7 @@ const CreatePost = () => {
     if (image) data.append('image', image);
 
     try {
-      await axios.post('http://localhost:5000/api/posts', data, {
+      await axios.post('https://blog-application-vh8n.onrender.com/api/posts', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

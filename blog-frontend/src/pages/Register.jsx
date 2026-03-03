@@ -16,7 +16,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await axios.post("https://blog-application-vh8n.onrender.com/api/auth/register", {
         username,
         email,
         password,

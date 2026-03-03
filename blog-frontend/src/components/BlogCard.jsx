@@ -19,7 +19,7 @@ const BlogCard = ({ post }) => {
       {/* Post Image */}
       {image && (
         <img
-          src={`http://localhost:5000/uploads/${image}`}
+          src={`https://blog-application-vh8n.onrender.com/uploads/${image}`}
           alt={title}
           className="w-full h-48 object-cover"
           loading="lazy"

@@ -14,7 +14,7 @@ const PostView = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        const res = await axios.get(`https://blog-application-vh8n.onrender.com/api/posts/${id}`);
         console.log("Fetched post:", res.data);
         setPost(res.data);
         setLikeCount(res.data.likes ? res.data.likes.length : 0);
